@@ -1,0 +1,27 @@
+import pandas as pd
+
+#Importing the Excel File
+workbook = pd.ExcelFile(r'H:\Aravindhan\Python\Source.xlsx')
+
+#Reading the Excel file into Memory
+wb_sheet1 = pd.read_excel(workbook)
+
+#Converting the Excel file into a DataFrame to do Data Validations
+data_frame = pd.DataFrame(wb_sheet1)
+
+#Taking the Unique values from the Column Owner to split the Source Excel workbook to Multiple Excel workbook's group by Owner
+owner_values = set(data_frame['Owner'])
+
+#Filtering the needed values from the column Type
+patching_configuration = data_frame[(data_frame['Type'] == 'Patching') | (data_frame['Type'] == 'Configuration')]
+
+#Creating a Excel Workbook and writing the filtered out Data
+patching_configuration.to_excel('H:\Aravindhan\Python\Patching & Configuration related vulnerabilites.xlsx',index=None)
+
+#Creating Excel workbook's for the unique values in the column Owner and Type Application
+for owner in owner_values:
+    filtered_sheet = data_frame[(data_frame['Owner'] == owner) & (data_frame['Type'] == 'Application')]
+    print(filtered_sheet)
+    string = f'H:\Aravindhan\Python\Application related vulnerabilites Owned by {owner}.xlsx'
+    filtered_sheet.to_excel(string,index=None)
+    
