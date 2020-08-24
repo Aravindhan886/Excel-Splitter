@@ -16,12 +16,12 @@ owner_values = set(data_frame['Owner'])
 patching_configuration = data_frame[(data_frame['Type'] == 'Patching') | (data_frame['Type'] == 'Configuration')]
 
 #Creating a Excel Workbook and writing the filtered out Data
-patching_configuration.to_excel('H:\Aravindhan\Python\Patching & Configuration related vulnerabilites.xlsx',index=None)
+patching_configuration.to_excel('H:\Python\Patching & Configuration related vulnerabilites.xlsx',index=None)
 
 #Creating Excel workbook's for the unique values in the column Owner and Type Application
 for owner in owner_values:
     filtered_sheet = data_frame[(data_frame['Owner'] == owner) & (data_frame['Type'] == 'Application')]
     print(filtered_sheet)
-    string = f'H:\Aravindhan\Python\Application related vulnerabilites Owned by {owner}.xlsx'
+    string = f'H:\Python\Application related vulnerabilites Owned by {owner}.xlsx'
     filtered_sheet.to_excel(string,index=None)
     
